@@ -5,9 +5,14 @@ services:
       - wp_net
     image: rija/docker-nginx-fpm-caches-wordpress
     volumes:
+      - /home/admin/www/google6e0f3c425445d638.html:/usr/share/nginx/www/google6e0f3c425445d638.html
+      - ${BACKUP_DIR}/www:/opt/backup
+      - ${WP_CONTENT}:/usr/share/nginx/www/wp-content
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /${HOME}/.docker/machine/machines/local/composed/${COMPOSE_PROJECT_NAME}:/root/.ssh
+
+#      - /etc/nginx/ssl.conf:/etc/nginx/ssl.web.conf
+#      - /${HOME}/.docker/machine/machines/local/composed/${COMPOSE_PROJECT_NAME}:/root/.ssh
     ports:
       - 443:443
       - 80:80
@@ -29,7 +34,7 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_USER: ${WP_DB_USER}
       MYSQL_PASSWORD: ${WP_DB_PASSWORD}
       MYSQL_DATABASE: ${WP_DB_NAME}

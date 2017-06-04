@@ -1,0 +1,36 @@
+0 login to aws host (debian8) as admin and sudo -i for root access
+
+1 install git
+# apt-get install git-core
+
+2 clone docker staff from github, checkout to branch custom
+# git clone https://github.com/SergeySulzhenko/docker-nginx-fpm-caches-wordpress.git /home/admin/wp-dock
+# git checkout custom
+
+3 install docker
+# chmod +x /home/admin/wp-dock/bin/setup-docker-deb8.sh \
+    && /home/admin/wp-dock/bin/setup-docker-deb8.sh
+===========
+
+4 create/edit .env file
+- actual version|hash wp, version docker-compose,
+- domain, email, db passwords
+
+5 - run
+# /home/admin/wp-dock/bin/wp-dock-start.sh
+ ..and wait building and after up press ctrl+c
+
+6 enable service, run and check status
+# cp /home/admin/wp-dock/bin/wp-dock.service /etc/systemd/system/ \
+    && systemctl daemon-reload \
+    && systemctl enable wp-dock \
+    && systemctl start wp-dock \
+    && systemctl status wp-dock
+
+8 add cron task for backup
+# cat ~/bin/crontab.backup | crontab -e
+
+9 when successfully started:
+# /home/admin/wp-dock/bin/wp-dock-ssl-init.sh
+
+

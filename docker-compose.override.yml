@@ -5,6 +5,16 @@ services:
       context: .
       args:
         GIT_SSH_URL: ${GIT_REPO_SSH_URL}
+        WP_VERSION: ${WP_VERSION}
+        WP_HASH: ${WP_HASH}
     environment:
       DEBUG: 'true'
+      SERVER_NAME: ${SERVER_NAME}
+      LE_EMAIL: ${LE_EMAIL}
     image: ${IMAGE_NAME}
+# @see https://hub.docker.com/_/mariadb/
+  db:
+    image: mariadb:latest
+    volumes:
+      - ${MYSQL_DATA}:/var/lib/mysql
+      - ${BACKUP_DIR}/mysql:/opt/backup

@@ -1,0 +1,18 @@
+[Unit]
+Description=Pod with WordPress
+After=network.target
+
+[Service]
+WorkingDirectory=/home/admin/wp-dock
+
+User=admin
+Group=admin
+Type=simple
+ExecStart=/home/admin/bin/wp-dock-start.sh
+ExecStop=/home/admin/bin/wp-dock-stop.sh
+TimeoutSec=60
+#RestartSec=5
+#Restart=always
+
+[Install]
+WantedBy=multi-user.target

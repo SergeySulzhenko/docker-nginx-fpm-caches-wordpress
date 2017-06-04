@@ -23,7 +23,8 @@ RUN apt-get update && apt-get install -y pwgen \
 						jq \
 						vim \
 						cron \
-						unzip
+						unzip \
+						locales
 
 
 RUN apt-get update && apt-get install -y mysql-client
@@ -77,13 +78,13 @@ COPY 02periodic /etc/apt/apt.conf.d/02periodic
 RUN apt-get update && apt-get install -y build-essential zlib1g-dev libpcre3 libpcre3-dev unzip libssl-dev libgeoip-dev
 RUN apt-get update && apt-get install -y nginx-light
 RUN cd /tmp \
-		&& curl -O https://nginx.org/download/nginx-1.11.3.tar.gz \
-		&& tar xzvf nginx-1.11.3.tar.gz \
+		&& curl -O https://nginx.org/download/nginx-1.10.3.tar.gz \
+		&& tar xzvf nginx-1.10.3.tar.gz \
 		&& curl -O http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz \
 		&& test `openssl sha1 ngx_cache_purge-2.3.tar.gz | cut -d"=" -f2` = 69ed46a23435e8dfd5579422c0c3996cf9a44291 \
 		&& tar xzvf ngx_cache_purge-2.3.tar.gz
 
-RUN cd /tmp/nginx-1.11.3 \
+RUN cd /tmp/nginx-1.10.3 \
 		&& ./configure --prefix=/usr/share/nginx \
 		--with-cc-opt='-g -O2 -fPIE -fstack-protector-strong -Wformat \
 		-Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2' \
@@ -175,6 +176,9 @@ ENV GIT_SSH_URL ${GIT_SSH_URL:-''}
 ARG WP_VERSION
 ENV WP_VERSION ${WP_VERSION:-4.5.3}
 
+ARG WP_HASH
+ENV WP_HASH ${WP_HASH}
+
 COPY download_wordpress /download_wordpress
 RUN chmod 755 /download_wordpress
 RUN /download_wordpress
@@ -201,3 +205,12 @@ RUN crontab /etc/certs.cron
 # Wordpress Initialization and Startup Script
 COPY  ./bootstrap.sh /bootstrap.sh
 RUN chmod 755 /bootstrap.sh
+
+COPY  ./init_ssl.sh /init_ssl.sh
+RUN chmod 755 /init_ssl.sh
+
+RUN apt-get clean \
+        && apt-get autoclean -y \
+        && rm -r /var/lib/apt/lists/* \
+        && find /var/cache/apt -name *cache.bin -delete \
+        && find /var/log/apt -name *log -delete

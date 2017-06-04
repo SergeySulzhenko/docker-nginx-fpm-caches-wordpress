@@ -59,4 +59,8 @@ DB_IP=$(curl --silent --unix-socket /var/run/docker.sock http:/containers/$DB_HO
 
 test "$DB_IP" != '' && echo "$DB_IP	$DB_HOSTNAME" >> /etc/hosts && echo "Wrote in /etc/hosts: $DB_IP	$DB_HOSTNAME"
 
+nginx -t && nginx -s reload
+
+mkdir -p /usr/share/nginx/www/wp-content/nginx-helper
+
 echo "bootsrapped on $(date)" > /tmp/last_bootstrap

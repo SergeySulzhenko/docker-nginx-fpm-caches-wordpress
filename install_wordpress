@@ -32,6 +32,6 @@ else
 fi
 
 # Boostraping Nginx Helper Wordpress plugin's log
-mkdir -p /usr/share/nginx/www/wp-content/uploads/nginx-helper
-touch /usr/share/nginx/www/wp-content/uploads/nginx-helper/nginx.log
-chown www-data:www-data /usr/share/nginx/www/wp-content/uploads/nginx-helper/nginx.log
+mkdir -p /usr/share/nginx/www/wp-content/nginx-helper
+touch /usr/share/nginx/www/wp-content/nginx-helper/nginx.log
+chown www-data:www-data /usr/share/nginx/www/wp-content/nginx-helper/nginx.log
