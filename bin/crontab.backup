@@ -1,1 +1,1 @@
-09 00 * * * /home/admin/bin/bckp-data.sh
+09 00 * * * /home/admin/wp-dock/bin/bckp-data.sh

@@ -28,7 +28,7 @@
     && systemctl status wp-dock
 
 8 add cron task for backup
-# cat ~/bin/crontab.backup | crontab -e
+# cat /home/admin/wp-dock/bin/crontab.backup | crontab -e
 
 9 when successfully started:
 # /home/admin/wp-dock/bin/wp-dock-ssl-init.sh
