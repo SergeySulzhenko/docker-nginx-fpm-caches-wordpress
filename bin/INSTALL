@@ -1,20 +1,20 @@
 0. login to aws host (debian8) as admin and sudo -i for root access
 
 1. install git
-# apt-get install git-core
+# apt-get update && apt-get install --no-install-recommends git-core
 
 2. clone docker staff from github, checkout to branch custom
 # git clone https://github.com/SergeySulzhenko/docker-nginx-fpm-caches-wordpress.git /home/admin/wp-dock
+# cd /home/admin/wp-dock
 # git checkout custom
 
-3. create/edit /home/admin/wp-dock/.env file
+3. create/edit /home/admin/wp-dock/.env file. see .env.sample
 - actual version|hash of wordpress, version of docker-compose,
 - domain, email
 - db passwords
 
 4. install docker
-# chmod +x /home/admin/wp-dock/bin/*.sh \
-    && /home/admin/wp-dock/bin/setup-docker-deb8.sh
+# /home/admin/wp-dock/bin/setup-docker-deb8.sh
 
 5. run
 # /home/admin/wp-dock/bin/wp-dock-start.sh
