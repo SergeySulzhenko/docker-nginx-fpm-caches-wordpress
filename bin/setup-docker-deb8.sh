@@ -48,4 +48,4 @@ mkdir $WP_CONTENT/upgrade
 mkdir $WP_CONTENT/uploads
 mkdir $WP_CONTENT/themes
 mkdir $WP_CONTENT/plugins
-chmod -R www-data:www-data $WP_CONTENT
+chown -R www-data:www-data $WP_CONTENT

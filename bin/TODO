@@ -7,14 +7,15 @@
 # git clone https://github.com/SergeySulzhenko/docker-nginx-fpm-caches-wordpress.git /home/admin/wp-dock
 # git checkout custom
 
-3 install docker
-# chmod +x /home/admin/wp-dock/bin/setup-docker-deb8.sh \
+3 create/edit .env file
+- actual version|hash wp, version docker-compose,
+- domain, email, db passwords
+
+4 install docker
+# chmod +x /home/admin/wp-dock/bin/*.sh \
     && /home/admin/wp-dock/bin/setup-docker-deb8.sh
 ===========
 
-4 create/edit .env file
-- actual version|hash wp, version docker-compose,
-- domain, email, db passwords
 
 5 - run
 # /home/admin/wp-dock/bin/wp-dock-start.sh
